@@ -1,0 +1,4 @@
+{
+  "port": 7000,
+  "mongouri": "mongodb+srv://admin:andrew2020@cluster0.cgazr.mongodb.net"
+}
