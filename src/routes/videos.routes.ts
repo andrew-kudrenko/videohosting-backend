@@ -24,7 +24,7 @@ const router = Router();
 
       if (!exists) {
         await new Video(video).save()
-        return res.status(201).send()
+        return res.status(201).end()
       }
     })
 
