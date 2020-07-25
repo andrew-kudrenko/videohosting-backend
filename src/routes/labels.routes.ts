@@ -24,7 +24,7 @@ const router = Router();
 
       if (!exists) {
         await new Label(label).save()
-        res.status(201).send()
+        return res.status(201).send()
       }
     })
 
