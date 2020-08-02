@@ -12,6 +12,7 @@ const connectionOptions = {
 
 export async function connect(endPoint: string) {
   try {
+    console.log(uri)
     await mongoose.connect(uri.concat(endPoint), connectionOptions)
   } catch (e) {
     console.log('Connecting error', e)
