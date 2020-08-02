@@ -1,12 +1,13 @@
-import { model, Schema, SchemaTypes } from 'mongoose'
+import { model, Schema } from 'mongoose'
 
 export const videoSchema = new Schema({
+  _id: String,
   title: String,
   description: String,
   previewUri: String,
   date: Date,
-  labels: [SchemaTypes.ObjectId],
-  categories: [SchemaTypes.ObjectId] 
+  labels: [String],
+  categories: [String] 
 })
 
 export default model('Video', videoSchema)

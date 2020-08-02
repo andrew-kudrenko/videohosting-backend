@@ -16,6 +16,8 @@
   "author": "Andrew Kudrenko <andrewkudrenko19@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@types/body-parser": "^1.19.0",
+    "body-parser": "^1.19.0",
     "config": "^3.3.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",

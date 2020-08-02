@@ -4,7 +4,7 @@ import config from 'config'
 const uri = config.get('mongouri') as string
 
 const connectionOptions = {
-  useFindAndModify: true,
+  useFindAndModify: false,
   useUnifiedTopology: true,
   useNewUrlParser: true,
   useCreateIndex: true

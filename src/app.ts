@@ -4,12 +4,14 @@ import labelsRoutes from './routes/labels.routes'
 import categoriesRouter from './routes/categories.routes'
 import videosRouter from './routes/videos.routes'
 import cors from 'cors'
+import bodyParser from 'body-parser'
 
 const port = config.get('port') || 7000
 const app: Application = express()
 
-app.use(express.json())
 app.use(cors())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
