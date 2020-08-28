@@ -5,62 +5,66 @@ import { labelSchema } from '../models/Label'
 const router = Router();
 
 (async () => {
-  const connection = await createConnection('/labels')
+  try {
+    const connection = await createConnection('/labels')
 
-  const Label = connection!.model('Label', labelSchema)
+    const Label = connection.model('Label', labelSchema)
 
-  router.route('/labels/:title?')
-    .get(async (req, res) => {
-      try {
-        const title = req.params['title'] || null
-        const matcher = title ? { title } : {}
+    router.route('/labels/:title?')
+      .get(async (req, res) => {
+        try {
+          const title = req.params['title'] || null
+          const matcher = title ? { title } : {}
 
-        res.json(await Label.find(matcher))
-      } catch (e) {
-        res.status(500).json(e)
-      }
-    })
-    .post(async (req, res) => {
-      try {
-        const { title, _id } = req.body
-  
-        const label = { title, _id }
-        const exists = (await Label.find(label)).length
-  
-        if (!exists) {
-          await new Label(label).save()
-          return res.status(201).json(null)
+          res.json(await Label.find(matcher))
+        } catch (e) {
+          res.status(500).json(e)
         }
-  
-        res.json(`Label with title ${title} is already exists`)  
-      } catch (e) {
-        res.status(500).json(e)
-      }
-    })
-    .delete(async (req, res) => {
-      try {
-        const { _id } = req.body
+      })
+      .post(async (req, res) => {
+        try {
+          const { title, _id } = req.body
 
-        await Label.findByIdAndDelete(_id)
+          const label = { title, _id }
+          const exists = (await Label.find(label)).length
 
-        res.json(`Label ${_id} has been deleted`)
-      } catch (e) {
-        res.status(500).json(e)
-      }
-    })
-    .patch(async (req, res) => {
-      try {
-        const { title, _id } = req.body        
-        const label = { title, _id }
-  
-        await Label.findByIdAndUpdate(_id, label)
-        res.json(`Label ${_id} has been modified`)        
-      } catch (e) {
-        res.status(500).json(e)
-      }
-    })
+          if (!exists) {
+            await new Label(label).save()
+            return res.status(201).json(null)
+          }
 
-  process.on('exit', connection!.close)
+          res.json(`Label with title ${title} is already exists`)
+        } catch (e) {
+          res.status(500).json(e)
+        }
+      })
+      .delete(async (req, res) => {
+        try {
+          const { _id } = req.body
+
+          await Label.findByIdAndDelete(_id)
+
+          res.json(`Label ${_id} has been deleted`)
+        } catch (e) {
+          res.status(500).json(e)
+        }
+      })
+      .patch(async (req, res) => {
+        try {
+          const { title, _id } = req.body
+          const label = { title, _id }
+
+          await Label.findByIdAndUpdate(_id, label)
+          res.json(`Label ${_id} has been modified`)
+        } catch (e) {
+          res.status(500).json(e)
+        }
+      })
+
+    process.on('exit', connection.close)
+  } catch (e) {
+    console.log('Router has not been ready', e)
+  }
 })()
 
 export default router

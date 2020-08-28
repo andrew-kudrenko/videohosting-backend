@@ -10,27 +10,18 @@ const connectionOptions = {
   useCreateIndex: true
 }
 
-export async function connect(endPoint: string) {
+export const createConnection = async (endPoint: string): Promise<mongoose.Connection> => {
   try {
-    await mongoose.connect(uri.concat(endPoint), connectionOptions)
-  } catch (e) {
-    console.log('Connecting error', e)
-  }
-}
-
-export async function createConnection(endPoint: string) {
-  try {
-    console.log(uri)
     return await mongoose.createConnection(uri.concat(endPoint), connectionOptions)
   } catch (e) {
-    console.log('Connecting error', e)
+    throw new Error('Connection wasn\'t created')
   }
 }
 
-export async function disconnect() {
+export const disconnect = async (): Promise<void> => {
   try {
     await mongoose.disconnect()
   } catch (e) {
-    console.log('Disconnecting error', e)
+    throw new Error('Connection wasn\'t disconnected')
   }
 }

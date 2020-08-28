@@ -4,7 +4,7 @@ export const categorySchema = new Schema({
   _id: String,
   title: {
     type: String,
-    unique: true
+    // unique: true
   },
   description: String,
   previewUri: String

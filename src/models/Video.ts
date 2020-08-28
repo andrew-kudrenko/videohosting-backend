@@ -5,7 +5,8 @@ export const videoSchema = new Schema({
   title: String,
   description: String,
   previewUri: String,
-  date: Date,
+  uri: String,
+  date: String,
   labels: [String],
   categories: [String] 
 })
